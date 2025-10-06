@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Time Difference Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+        h2 {
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        input[type="datetime-local"] {
+            padding: 8px;
+            width: 250px;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 30px;
+            font-size: 18px;
+            color: #006400;
+        }
+    </style>
+</head>
+<body>
+    <h2>Time Difference Calculator</h2>
+    <label for="start">Start Date & Time:</label>
+    <input type="datetime-local" id="start">
+
+    <label for="end">End Date & Time:</label>
+    <input type="datetime-local" id="end">
+
+    <button onclick="calculateDifference()">Calculate</button>
+
+    <div id="result"></div>
+
+    <script>
+        function calculateDifference() {
+            const start = new Date(document.getElementById('start').value);
+            const end = new Date(document.getElementById('end').value);
+
+            if (isNaN(start) || isNaN(end)) {
+                document.getElementById('result').innerText = "Please enter valid start and end date/time.";
+                return;
+            }
+
+            const diffMs = end - start;
+            if (diffMs < 0) {
+                document.getElementById('result').innerText = "End time must be after start time.";
+                return;
+            }
+
+            const diffMinutes = Math.floor(diffMs / 60000);
+            const hours = Math.floor(diffMinutes / 60);
+            const minutes = diffMinutes % 60;
+
+            document.getElementById('result').innerText = `Time Difference: ${hours} hrs ${minutes} mins`;
+        }
+    </script>
+</body>
+</html>
